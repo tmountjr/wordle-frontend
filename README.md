@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# WORD puzzLE Helper
 
-## Getting Started
+This webapp helps solve a popular word puzzle where one has six chances to guess a word chosen at random. After each turn, the computer provides feedback on each letter in a color-coded format:
 
-First, run the development server:
+- Green - the letter is the correct letter for that position in the word.
+- Yellow - the letter is present in the word but not at this position.
+- Gray - the letter is not present in the word.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+# Using the App
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+In each turn, enter both the guess and the feedback received from whatever platform you're actually playing on. Under each letter is a swatch of colors. Click the color that your platform came back with for each letter. When all letters have been filled in and all feedback has been recorded, click "Submit."
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+The app will process each guess against the official word list and remove words based on the feedback. At the end of each round you will be told the percentage of the remaining words were eliminated and how many words are still possible.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The game ends when all letters are marked "green" or all six turns have been taken.
 
-## Learn More
+## What this app DOES do
 
-To learn more about Next.js, take a look at the following resources:
+This app WILL:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- start with an official word list of 5-letter words (excluding objectionable or obscene words);
+- update that word list after each turn;
+- offer feedback on the quality of the guess;
+- optionally show the remaining words that can still be guessed.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## What this app DOES NOT do
 
-## Deploy on Vercel
+This app WILL NOT:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- choose a starting word - this app isn't the game, it's a helper to the game;
+- check if you entered an actual word or not;
+- keep score from visit to visit - again, this app isn't the actual game.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# More Information
+
+This app grew out of a command-line project I wrote a few years ago to play around with the idea of set theory in JavaScript/Typescript. That project is available [here](https://github.com/tmountjr/wordle_solver) if you want to play around with it. I can't guarantee all the steps necessary to run a raw Typescript project on your commandline; this is mostly for advanced users. I decided to put it online so I didn't have to keep running into my office to run the CLI whenever I wanted to work through a puzzle.
+
+When building this frontend in [Next.js](https://nextjs.org), I took the word list in JSON format, as well as the [WordList.ts](https://github.com/tmountjr/wordle_solver/blob/main/WordList.ts) class and the [helpers.ts](https://github.com/tmountjr/wordle_solver/blob/main/helpers.ts) file (which provides the actual set operations) from the CLI and copied them over to the app (since the CLI isn't set up as an NPM module).
