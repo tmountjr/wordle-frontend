@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 
-export default function Guess({ initialValues, initialResults, onSubmit, message, disabled, previousValues }) {
+export default function Guess({ initialValues, initialResults, onSubmit, message, disabled, previousValues, selectedWord }) {
   const [ values, setValues ] = useState(initialValues)
   const [ results, setResults ] = useState(initialResults)
   const [ submitted, setSubmitted ] = useState(false)
@@ -10,6 +10,12 @@ export default function Guess({ initialValues, initialResults, onSubmit, message
     setValues(initialValues)
     setResults(initialResults)
   }, [initialValues, initialResults])
+
+  useEffect(() => {
+    if (selectedWord) {
+      setValues(selectedWord.split(''))
+    }
+  }, [selectedWord])
 
   const handleChange = (e, index) => {
     const newValues = [...values]

@@ -17,6 +17,7 @@ export default function Board() {
   const [ wordList, setWordList ] = useState(new WordList(['xxxxx']))
   const [ messageClasses, setMessageClasses ] = useState(['text-center'])
   const [ flyoutOpen, setFlyoutOpen ] = useState(false)
+  const [ selectedWord, setSelectedWord ] = useState(null)
 
   useEffect(() => {
     const fetchWordlist = async () => {
@@ -87,6 +88,11 @@ export default function Board() {
     }
   }
 
+  const pushGuess = (word) => {
+    setSelectedWord(word.toUpperCase())
+    setFlyoutOpen(false)
+  }
+
   return (
     <>
       <div className="space-y-2 w-full">
@@ -99,9 +105,19 @@ export default function Board() {
             onSubmit={(values, results) => handleGuessSubmit(index, values, results)}
             disabled={guess.disabled}
             previousValues={index > 0 ? guesses[index - 1].values : null}
+            selectedWord={index === guesses.length - 1 ? selectedWord : null}
           />
         ))}
         {gameOver && <div className={messageClasses.join(' ')}>Game Over!</div>}
+        {gameOver && (
+          <button
+            type="button"
+            className="w-full py-2 bg-blue-500 text-white rounded-md"
+            onClick={() => window.location.reload()}
+          >
+            Reset
+          </button>
+        )}
       </div>
       <div className="mt-4">
         <a href="#" onClick={() => setFlyoutOpen(true)}>Click here to see remaining valid words.</a>
@@ -110,10 +126,17 @@ export default function Board() {
         <div className="fixed inset-0 bg-gray-800 bg-opacity-50 dark:bg-gray-900 dark:bg-opacity-75 z-50" onClick={() => setFlyoutOpen(false)}>
           <div className="fixed right-0 top-0 h-full w-1/3 bg-white dark:bg-gray-800 shadow-lg p-4 overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             <button className="text-right text-gray-700 dark:text-gray-300" onClick={() => setFlyoutOpen(false)}>[Close]</button>
-            <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-gray-100">Remaining Valid Words</h2>
-            <ul className="text-gray-700 dark:text-gray-300">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Remaining Valid Words</h2>
+            <h3 className="text-sm text-gray-900 dark:text-gray-100 mb-4"><em>Click a word to send it to the current guess.</em></h3>
+            <ul className="text-gray-700 dark:text-gray-300 flex flex-wrap gap-5">
               {wordList.words.map((word, index) => (
-                <li key={`word-${index}`}>{word}</li>
+                <li
+                  key={`word-${index}`}
+                  className="p-1 bg-gray-200 dark:bg-gray-700 rounded border border-gray-300 dark:border-gray-600 hover:bg-gray-300 dark:hover:bg-gray-600 cursor-pointer"
+                  onClick={() => pushGuess(word)}
+                >
+                  {word}
+                </li>
               ))}
             </ul>
           </div>
