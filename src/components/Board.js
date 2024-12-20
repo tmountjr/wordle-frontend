@@ -48,7 +48,10 @@ export default function Board() {
     const newSize = wordList.size
     const wordsEliminated = oldSize - newSize
     const pctEliminated = ((wordsEliminated / oldSize) * 100).toFixed(2)
-    let message = `This guess eliminated ${pctEliminated}% of words from the list. There are now ${newSize} valid words left.`
+    const correctGuess = results.every(color => color === 'G')
+    const message = correctGuess
+      ? 'You guessed the word!'
+      : `This guess eliminated ${pctEliminated}% of words from the list. There are now ${newSize} valid words left.`
 
     // Store this guess operation in the main list.
     const newGuesses = [...guesses]
@@ -56,10 +59,9 @@ export default function Board() {
     setGuesses(newGuesses)
 
     // Check if the game should be over.
-    if (results.every(color => color === 'G')) {
+    if (correctGuess) {
       // Game is over if all letters are correctly placed.
       setMessageClasses([...messageClasses, 'text-green-500'])
-      message = 'You guessed the word!'
       setGameOver(true)
     } else if (guesses.length < 6) {
       // If not all letters are placed AND we stil have guesses left to make...
