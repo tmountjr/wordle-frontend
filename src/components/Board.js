@@ -16,6 +16,7 @@ export default function Board() {
   const [ gameOver, setGameOver ] = useState(false)
   const [ wordList, setWordList ] = useState(new WordList(['xxxxx']))
   const [ messageClasses, setMessageClasses ] = useState(['text-center'])
+  const [ flyoutOpen, setFlyoutOpen ] = useState(false)
 
   useEffect(() => {
     const fetchWordlist = async () => {
@@ -102,6 +103,22 @@ export default function Board() {
         ))}
         {gameOver && <div className={messageClasses.join(' ')}>Game Over!</div>}
       </div>
+      <div className="mt-4">
+        <a href="#" onClick={() => setFlyoutOpen(true)}>Click here to see remaining valid words.</a>
+      </div>
+      {flyoutOpen && (
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 dark:bg-gray-900 dark:bg-opacity-75 z-50" onClick={() => setFlyoutOpen(false)}>
+          <div className="fixed right-0 top-0 h-full w-1/3 bg-white dark:bg-gray-800 shadow-lg p-4 overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+            <button className="text-right text-gray-700 dark:text-gray-300" onClick={() => setFlyoutOpen(false)}>[Close]</button>
+            <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-gray-100">Remaining Valid Words</h2>
+            <ul className="text-gray-700 dark:text-gray-300">
+              {wordList.words.map((word, index) => (
+                <li key={`word-${index}`}>{word}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
     </>
   )
 }
