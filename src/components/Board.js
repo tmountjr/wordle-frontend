@@ -9,7 +9,8 @@ export default function Board() {
       id: 1,
       values: Array(5).fill(''),
       results: Array(5).fill('X'),
-      message: ''
+      message: '',
+      disabled: Array(5).fill(false)
     }
   ])
   const [ gameOver, setGameOver ] = useState(false)
@@ -67,13 +68,15 @@ export default function Board() {
       // If not all letters are placed AND we stil have guesses left to make...
       const nextValues = values.map((value, i) => (results[i] === "G" ? value : ""))
       const nextResults = results.map(result => (result === "G" ? "G" : "X"))
+      const nextDisabled = results.map(result => result === "G")
       setGuesses([
         ...newGuesses,
         {
           id: newGuesses.length + 1,
           values: nextValues,
           results: nextResults,
-          message: ''
+          message: '',
+          disabled: nextDisabled,
         }
       ])
     } else {
@@ -93,6 +96,7 @@ export default function Board() {
             initialResults={guess.results}
             message={guess.message}
             onSubmit={(values, results) => handleGuessSubmit(index, values, results)}
+            disabled={guess.disabled}
           />
         ))}
         {gameOver && <div className={messageClasses.join(' ')}>Game Over!</div>}

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 
-export default function Guess({ initialValues, initialResults, onSubmit, message }) {
+export default function Guess({ initialValues, initialResults, onSubmit, message, disabled }) {
   const [ values, setValues ] = useState(initialValues)
   const [ results, setResults ] = useState(initialResults)
   const [ submitted, setSubmitted ] = useState(false)
@@ -17,7 +17,13 @@ export default function Guess({ initialValues, initialResults, onSubmit, message
     setValues(newValues)
 
     if (e.target.value && index < 4) {
-      inputRefs.current[index + 1].focus()
+      let nextIndex = index + 1
+      while (nextIndex < 5 && disabled[nextIndex]) {
+        nextIndex++
+      }
+      if (nextIndex < 5) {
+        inputRefs.current[nextIndex].focus()
+      }
     }
   }
 
@@ -63,9 +69,9 @@ export default function Guess({ initialValues, initialResults, onSubmit, message
                 value={value}
                 onChange={(e) => handleChange(e, index)}
                 className={`w-12 h-12 text-center text-xl border-2 focus:outline-none border-gray-300 focus:border-blue-500 rounded-md ${getColorClass(results[index])} text-black`}
-                disabled={submitted}
+                disabled={submitted || disabled[index]}
               />
-              {!submitted && (
+              {!submitted && !disabled[index] && (
                 <div className="flex space-x-1 mt-2">
                   <button
                     onClick={() => handleColorChange(index, 'G')}
