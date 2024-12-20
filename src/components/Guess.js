@@ -70,22 +70,26 @@ export default function Guess({ initialValues, initialResults, onSubmit, message
                 onChange={(e) => handleChange(e, index)}
                 className={`w-12 h-12 text-center text-xl border-2 focus:outline-none border-gray-300 focus:border-blue-500 rounded-md ${getColorClass(results[index])} text-black`}
                 disabled={submitted || disabled[index]}
+                tabIndex={index + 1}
               />
               {!submitted && !disabled[index] && (
                 <div className="flex space-x-1 mt-2">
                   <button
                     onClick={() => handleColorChange(index, 'G')}
                     className="w-4 h-4 bg-green-500 rounded-full"
+                    tabIndex={6 + index * 3 + 1}
                   >
                   </button>
                   <button
                     onClick={() => handleColorChange(index, 'Y')}
                     className="w-4 h-4 bg-yellow-500 rounded-full"
+                    tabIndex={6 + index * 3 + 2}
                   >
                   </button>
                   <button
                     onClick={() => handleColorChange(index, 'X')}
                     className="w-4 h-4 bg-gray-300 rounded-full"
+                    tabIndex={6 + index * 3 + 3}
                   >
                   </button>
                 </div>
