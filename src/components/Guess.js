@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 
-export default function Guess({ initialValues, initialResults, onSubmit, message, disabled }) {
+export default function Guess({ initialValues, initialResults, onSubmit, message, disabled, previousValues }) {
   const [ values, setValues ] = useState(initialValues)
   const [ results, setResults ] = useState(initialResults)
   const [ submitted, setSubmitted ] = useState(false)
@@ -46,6 +46,10 @@ export default function Guess({ initialValues, initialResults, onSubmit, message
   }
 
   const handleSubmit = () => {
+    if (previousValues && previousValues.join('') === values.join('')) {
+      alert('Your guess is the same as the previous guess. Please try again.')
+      return
+    }
     const allFilled = values.every(value => /^[A-Z]$/.test(value))
     if (allFilled) {
       setSubmitted(true)

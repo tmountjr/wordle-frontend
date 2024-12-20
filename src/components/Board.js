@@ -97,6 +97,7 @@ export default function Board() {
             message={guess.message}
             onSubmit={(values, results) => handleGuessSubmit(index, values, results)}
             disabled={guess.disabled}
+            previousValues={index > 0 ? guesses[index - 1].values : null}
           />
         ))}
         {gameOver && <div className={messageClasses.join(' ')}>Game Over!</div>}
