@@ -95,6 +95,12 @@ export default function Board() {
 
   return (
     <>
+      <div className="text-gray-900 dark:text-gray-100 space-y-2">
+        <h1 className="text-xl font-bold text-center">WORD puzzLE Helper</h1>
+        <p>Enter a guess in the field below. Then, for each letter, choose whether the letter was in the right place (green), the wrong place (yellow), or did not appear at all (gray).</p>
+        <p>Click the "Submit" button to update the word list after each round.</p>
+        <p>If you need some inspiration, click the link at the bottom of the board to show all available words. You can click a word to transfer it to the board.</p>
+      </div>
       <div className="space-y-2 w-full">
         {guesses.map((guess, index) => (
           <Guess
