@@ -14,6 +14,7 @@ export default function Board() {
   ])
   const [ gameOver, setGameOver ] = useState(false)
   const [ wordList, setWordList ] = useState(new WordList(['xxxxx']))
+  const [ messageClasses, setMessageClasses ] = useState(['text-center'])
 
   useEffect(() => {
     const fetchWordlist = async () => {
@@ -47,7 +48,7 @@ export default function Board() {
     const newSize = wordList.size
     const wordsEliminated = oldSize - newSize
     const pctEliminated = ((wordsEliminated / oldSize) * 100).toFixed(2)
-    const message = `This guess eliminated ${pctEliminated}% of words from the list. There are now ${newSize} valid words left.`
+    let message = `This guess eliminated ${pctEliminated}% of words from the list. There are now ${newSize} valid words left.`
 
     // Store this guess operation in the main list.
     const newGuesses = [...guesses]
@@ -57,6 +58,8 @@ export default function Board() {
     // Check if the game should be over.
     if (results.every(color => color === 'G')) {
       // Game is over if all letters are correctly placed.
+      setMessageClasses([...messageClasses, 'text-green-500'])
+      message = 'You guessed the word!'
       setGameOver(true)
     } else if (guesses.length < 6) {
       // If not all letters are placed AND we stil have guesses left to make...
@@ -73,13 +76,14 @@ export default function Board() {
       ])
     } else {
       // Not all letters are placed but we're out of guesses.
+      setMessageClasses([...messageClasses, 'text-red-500'])
       setGameOver(true)
     }
   }
 
   return (
     <>
-      <div className="space-y-2">
+      <div className="space-y-2 w-full">
         {guesses.map((guess, index) => (
           <Guess
             key={guess.id}
@@ -89,7 +93,7 @@ export default function Board() {
             onSubmit={(values, results) => handleGuessSubmit(index, values, results)}
           />
         ))}
-        {gameOver && <div className="text-center text-green-500">Game Over!</div>}
+        {gameOver && <div className={messageClasses.join(' ')}>Game Over!</div>}
       </div>
     </>
   )

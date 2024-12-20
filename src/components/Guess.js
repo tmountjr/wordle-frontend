@@ -96,7 +96,7 @@ export default function Guess({ initialValues, initialResults, onSubmit, message
           </button>
         )}
         {submitted && message && (
-          <div className="text-center text-gray-700">
+          <div className="text-center text-gray-700 dark:text-gray-400">
             {message}
           </div>
         )}
