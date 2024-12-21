@@ -130,7 +130,7 @@ export default function Board() {
       </div>
       {flyoutOpen && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-50 dark:bg-gray-900 dark:bg-opacity-75 z-50" onClick={() => setFlyoutOpen(false)}>
-          <div className="fixed right-0 top-0 h-full w-1/3 bg-white dark:bg-gray-800 shadow-lg p-4 overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+          <div className="fixed right-0 top-0 h-full w-2/3 sm:w-1/3 bg-white dark:bg-gray-800 shadow-lg p-4 overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             <button className="text-right text-gray-700 dark:text-gray-300" onClick={() => setFlyoutOpen(false)}>[Close]</button>
             <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Remaining Valid Words</h2>
             <h3 className="text-sm text-gray-900 dark:text-gray-100 mb-4"><em>Click a word to send it to the current guess.</em></h3>
