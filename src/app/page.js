@@ -1,4 +1,6 @@
 import Board from '@/components/Board'
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function Home() {
   return (
@@ -10,7 +12,12 @@ export default function Home() {
           </main>
         </div>
         <div className="fixed bottom-0 left-0 p-4 text-gray-600 dark:text-gray-400">
-          &copy; {new Date().getFullYear()} Tom Mount. All rights reserved.
+          <div className="flex items-center space-x-2">
+            <p>&copy; {new Date().getFullYear()} Tom Mount. All rights reserved.</p>
+            <a href="https://github.com/tmountjr/wordle-frontend" target='_blank' rel='noopener noreferrer'>
+              <FontAwesomeIcon icon={faGithub} />
+            </a>
+          </div>
         </div>
       </div>
     </>

@@ -6,6 +6,8 @@ This webapp helps solve a popular word puzzle where one has six chances to guess
 - Yellow - the letter is present in the word but not at this position.
 - Gray - the letter is not present in the word.
 
+Try it out here: [https://wordle.tommount.net](https://wordle.tommount.net)
+
 # Using the App
 
 In each turn, enter both the guess and the feedback received from whatever platform you're actually playing on. Under each letter is a swatch of colors. Click the color that your platform came back with for each letter. When all letters have been filled in and all feedback has been recorded, click "Submit."
