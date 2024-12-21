@@ -71,6 +71,7 @@ export default function Board() {
       const nextValues = values.map((value, i) => (results[i] === "G" ? value : ""))
       const nextResults = results.map(result => (result === "G" ? "G" : "X"))
       const nextDisabled = results.map(result => result === "G")
+      setSelectedWord(null)
       setGuesses([
         ...newGuesses,
         {
