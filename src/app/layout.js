@@ -1,5 +1,6 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Footer from '@/components/Footer';
+import { Geist, Geist_Mono } from "next/font/google";
 
 // FontAwesome integration
 import { config } from '@fortawesome/fontawesome-svg-core'
@@ -30,7 +31,13 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <div className="relative min-h-screen flex flex-col">
+          <div className="flex-grow">
+            {children}
+          </div>
+
+          <Footer />
+        </div>
         <Analytics />
         <SpeedInsights />
       </body>
